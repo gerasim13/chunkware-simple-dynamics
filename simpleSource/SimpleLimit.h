@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Class		: SimpleLimit
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -48,24 +48,24 @@ namespace chunkware_simple
 		virtual ~SimpleLimit() {}
 
 		// parameters
-		virtual void setThresh( double dB );
-		virtual void setAttack( double ms );
-		virtual void setRelease( double ms );
+		virtual void setThresh( SampleType dB );
+		virtual void setAttack( SampleType ms );
+		virtual void setRelease( SampleType ms );
 
-		virtual double getThresh( void )  const { return threshdB_; }
-		virtual double getAttack( void )  const { return att_.getTc(); }
-		virtual double getRelease( void ) const { return rel_.getTc(); }
+		virtual SampleType getThresh( void )  const { return threshdB_; }
+		virtual SampleType getAttack( void )  const { return att_.getTc(); }
+		virtual SampleType getRelease( void ) const { return rel_.getTc(); }
 
 		// latency
 		virtual const unsigned int getLatency( void ) const { return peakHold_; }
 
 		// sample rate dependencies
-		virtual void   setSampleRate( double sampleRate );
-		virtual double getSampleRate( void ) { return att_.getSampleRate(); }
+		virtual void   setSampleRate( SampleType sampleRate );
+		virtual SampleType getSampleRate( void ) { return att_.getSampleRate(); }
 		
 		// runtime
 		virtual void initRuntime( void );			// call before runtime (in resume())
-		void process( double &in1, double &in2 );	// limiter runtime process
+		void process( SampleType &in1, SampleType &in2 );	// limiter runtime process
 
 	protected:
 
@@ -73,7 +73,7 @@ namespace chunkware_simple
 		class FastEnvelope : public EnvelopeDetector
 		{
 		public:
-			FastEnvelope( double ms = 1.0, double sampleRate = 44100.0 )
+			FastEnvelope( SampleType ms = 1.0, SampleType sampleRate = 44100.0 )
 				: EnvelopeDetector( ms, sampleRate )
 			{}
 			virtual ~FastEnvelope() {}
@@ -86,18 +86,18 @@ namespace chunkware_simple
 	private:
 		
 		// transfer function
-		double threshdB_;	// threshold (dB)
-		double thresh_;		// threshold (linear)
+		SampleType threshdB_;	// threshold (dB)
+		SampleType thresh_;		// threshold (linear)
 
 		// max peak
 		unsigned int peakHold_;		// peak hold (samples)
 		unsigned int peakTimer_;	// peak hold timer
-		double maxPeak_;			// max peak
+		SampleType maxPeak_;			// max peak
 
 		// attack/release envelope
 		FastEnvelope att_;			// attack
 		FastEnvelope rel_;			// release
-		double env_;				// over-threshold envelope (linear)
+		SampleType env_;				// over-threshold envelope (linear)
 
 		// buffer
 		// BUFFER_SIZE default can handle up to ~10ms at 96kHz
@@ -105,7 +105,7 @@ namespace chunkware_simple
 		static const int BUFFER_SIZE = 1024;	// buffer size (always a power of 2!)
 		unsigned int mask_;						// buffer mask
 		unsigned int cur_;						// cursor
-		std::vector< double > outBuffer_[ 2 ];	// output buffer
+		std::vector< SampleType > outBuffer_[ 2 ];	// output buffer
 		
 	};	// end SimpleLimit class
 

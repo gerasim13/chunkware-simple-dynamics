@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Implements	: EnvelopeDetector, AttRelEnvelope
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -35,7 +35,7 @@ namespace chunkware_simple
 	//-------------------------------------------------------------
 	// envelope detector
 	//-------------------------------------------------------------
-	EnvelopeDetector::EnvelopeDetector( double ms, double sampleRate )
+	EnvelopeDetector::EnvelopeDetector( SampleType ms, SampleType sampleRate )
 	{
 		assert( sampleRate > 0.0 );
 		assert( ms > 0.0 );
@@ -45,7 +45,7 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void EnvelopeDetector::setTc( double ms )
+	void EnvelopeDetector::setTc( SampleType ms )
 	{
 		assert( ms > 0.0 );
 		ms_ = ms;
@@ -53,7 +53,7 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void EnvelopeDetector::setSampleRate( double sampleRate )
+	void EnvelopeDetector::setSampleRate( SampleType sampleRate )
 	{
 		assert( sampleRate > 0.0 );
 		sampleRate_ = sampleRate;
@@ -69,26 +69,26 @@ namespace chunkware_simple
 	//-------------------------------------------------------------
 	// attack/release envelope
 	//-------------------------------------------------------------
-	AttRelEnvelope::AttRelEnvelope( double att_ms, double rel_ms, double sampleRate )
+	AttRelEnvelope::AttRelEnvelope( SampleType att_ms, SampleType rel_ms, SampleType sampleRate )
 		: att_( att_ms, sampleRate )
 		, rel_( rel_ms, sampleRate )
 	{
 	}
 
 	//-------------------------------------------------------------
-	void AttRelEnvelope::setAttack( double ms )
+	void AttRelEnvelope::setAttack( SampleType ms )
 	{
 		att_.setTc( ms );
 	}
 
 	//-------------------------------------------------------------
-	void AttRelEnvelope::setRelease( double ms )
+	void AttRelEnvelope::setRelease( SampleType ms )
 	{
 		rel_.setTc( ms );
 	}
 
 	//-------------------------------------------------------------
-	void AttRelEnvelope::setSampleRate( double sampleRate )
+	void AttRelEnvelope::setSampleRate( SampleType sampleRate )
 	{
 		att_.setSampleRate( sampleRate );
 		rel_.setSampleRate( sampleRate );

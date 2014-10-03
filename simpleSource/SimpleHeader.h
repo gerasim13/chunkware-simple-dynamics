@@ -5,7 +5,7 @@
  *	Library		: SimpleSource
  *  Version		: 1.12
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -41,5 +41,8 @@
 #include <algorithm>	// for min(), max()
 #include <cassert>		// for assert()
 #include <cmath>
+#include <MacTypes.h>
+
+typedef Float32 SampleType;
 
 #endif	// end __SIMPLE_HEADER_H__

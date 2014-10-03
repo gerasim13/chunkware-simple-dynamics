@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Implements	: SimpleComp, SimpleCompRms
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -44,13 +44,13 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleComp::setThresh( double dB )
+	void SimpleComp::setThresh( SampleType dB )
 	{
 		threshdB_ = dB;
 	}
 
 	//-------------------------------------------------------------
-	void SimpleComp::setRatio( double ratio )
+	void SimpleComp::setRatio( SampleType ratio )
 	{
 		assert( ratio > 0.0 );
 		ratio_ = ratio;
@@ -72,14 +72,14 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleCompRms::setSampleRate( double sampleRate )
+	void SimpleCompRms::setSampleRate( SampleType sampleRate )
 	{
 		SimpleComp::setSampleRate( sampleRate );
 		ave_.setSampleRate( sampleRate );
 	}
 
 	//-------------------------------------------------------------
-	void SimpleCompRms::setWindow( double ms )
+	void SimpleCompRms::setWindow( SampleType ms )
 	{
 		ave_.setTc( ms );
 	}

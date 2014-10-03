@@ -4,11 +4,11 @@
  *  File		: SimpleGateProcess.inl
  *	Library		: SimpleSource
  *  Version		: 1.12
- *  Implements	: void SimpleGate::process( double &in1, double &in2 )
- *				  void SimpleGate::process( double &in1, double &in2, double keyLinked )
- *				  void SimpleGateRms::process( double &in1, double &in2 )
+ *  Implements	: void SimpleGate::process( SampleType &in1, SampleType &in2 )
+ *				  void SimpleGate::process( SampleType &in1, SampleType &in2, SampleType keyLinked )
+ *				  void SimpleGateRms::process( SampleType &in1, SampleType &in2 )
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -36,30 +36,30 @@
 namespace chunkware_simple
 {
 	//-------------------------------------------------------------
-	INLINE void SimpleGate::process( double &in1, double &in2 )
+	INLINE void SimpleGate::process( SampleType &in1, SampleType &in2 )
 	{
 		// create sidechain
 
-		double rect1 = fabs( in1 );	// rectify input
-		double rect2 = fabs( in2 );
+		SampleType rect1 = fabs( in1 );	// rectify input
+		SampleType rect2 = fabs( in2 );
 
 		/* if desired, one could use another EnvelopeDetector to smooth
 		 * the rectified signal.
 		 */
 
-		double link = std::max( rect1, rect2 );	// link channels with greater of 2
+		SampleType link = std::max( rect1, rect2 );	// link channels with greater of 2
 
 		process( in1, in2, link );	// rest of process
 	}
 
 	//-------------------------------------------------------------
-	INLINE void SimpleGate::process( double &in1, double &in2, double keyLinked )
+	INLINE void SimpleGate::process( SampleType &in1, SampleType &in2, SampleType keyLinked )
 	{
 		keyLinked = fabs( keyLinked );	// rectify (just in case)
 
 		// threshold
 		// key over threshold ( 0.0 or 1.0 )
-		double over = double( keyLinked > thresh_ );
+		SampleType over = SampleType( keyLinked > thresh_ );
 
 		// attack/release
 		over += DC_OFFSET;					// add DC offset to avoid denormal
@@ -79,17 +79,17 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	INLINE void SimpleGateRms::process( double &in1, double &in2 )
+	INLINE void SimpleGateRms::process( SampleType &in1, SampleType &in2 )
 	{
 		// create sidechain
 
-		double inSq1 = in1 * in1;	// square input
-		double inSq2 = in2 * in2;
+		SampleType inSq1 = in1 * in1;	// square input
+		SampleType inSq2 = in2 * in2;
 
-		double sum = inSq1 + inSq2;			// power summing
+		SampleType sum = inSq1 + inSq2;			// power summing
 		sum += DC_OFFSET;					// DC offset, to prevent denormal
 		ave_.run( sum, aveOfSqrs_ );		// average of squares
-		double rms = sqrt( aveOfSqrs_ );	// rms (sort of ...)
+		SampleType rms = sqrt( aveOfSqrs_ );	// rms (sort of ...)
 
 		/* REGARDING THE RMS AVERAGER: Ok, so this isn't a REAL RMS
 		 * calculation. A true RMS is an FIR moving average. This

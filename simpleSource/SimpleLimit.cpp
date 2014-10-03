@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Implements	: SimpleLimit
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -51,14 +51,14 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleLimit::setThresh( double dB )
+	void SimpleLimit::setThresh( SampleType dB )
 	{
 		threshdB_ = dB;
 		thresh_ = dB2lin( dB );
 	}
 
 	//-------------------------------------------------------------
-	void SimpleLimit::setAttack( double ms )
+	void SimpleLimit::setAttack( SampleType ms )
 	{
 		unsigned int samp = int( 0.001 * ms * att_.getSampleRate() );
 
@@ -69,13 +69,13 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleLimit::setRelease( double ms )
+	void SimpleLimit::setRelease( SampleType ms )
 	{
 		rel_.setTc( ms );
 	}
 
 	//-------------------------------------------------------------
-	void SimpleLimit::setSampleRate( double sampleRate )
+	void SimpleLimit::setSampleRate( SampleType sampleRate )
 	{
 		att_.setSampleRate( sampleRate );
 		rel_.setSampleRate( sampleRate );

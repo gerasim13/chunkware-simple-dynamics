@@ -8,7 +8,7 @@
  *				  void SimpleComp::process( double &in1, double &in2, double keyLinked )
  *				  void SimpleCompRms::process( double &in1, double &in2 )
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -36,33 +36,33 @@
 namespace chunkware_simple
 {
 	//-------------------------------------------------------------
-	INLINE void SimpleComp::process( double &in1, double &in2 )
+	INLINE void SimpleComp::process( SampleType &in1, SampleType &in2 )
 	{
 		// create sidechain
 
-		double rect1 = fabs( in1 );	// rectify input
-		double rect2 = fabs( in2 );
+		SampleType rect1 = fabs( in1 );	// rectify input
+		SampleType rect2 = fabs( in2 );
 
 		/* if desired, one could use another EnvelopeDetector to smooth
 		 * the rectified signal.
 		 */
 
-		double link = std::max( rect1, rect2 );	// link channels with greater of 2
+		SampleType link = std::max( rect1, rect2 );	// link channels with greater of 2
 
 		process( in1, in2, link );	// rest of process
 	}
 
 	//-------------------------------------------------------------
-	INLINE void SimpleComp::process( double &in1, double &in2, double keyLinked )
+	INLINE void SimpleComp::process( SampleType &in1, SampleType &in2, SampleType keyLinked )
 	{
 		keyLinked = fabs( keyLinked );		// rectify (just in case)
 
 		// convert key to dB
 		keyLinked += DC_OFFSET;				// add DC offset to avoid log( 0 )
-		double keydB = lin2dB( keyLinked );	// convert linear -> dB
+		SampleType keydB = lin2dB( keyLinked );	// convert linear -> dB
 
 		// threshold
-		double overdB = keydB - threshdB_;	// delta over threshold
+		SampleType overdB = keydB - threshdB_;	// delta over threshold
 		if ( overdB < 0.0 )
 			overdB = 0.0;
 
@@ -80,7 +80,7 @@ namespace chunkware_simple
 		 */
 
 		// transfer function
-		double gr = overdB * ( ratio_ - 1.0 );	// gain reduction (dB)
+		SampleType gr = overdB * ( ratio_ - 1.0 );	// gain reduction (dB)
 		gr = dB2lin( gr );						// convert dB -> linear
 
 		// output gain
@@ -89,17 +89,17 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	INLINE void SimpleCompRms::process( double &in1, double &in2 )
+	INLINE void SimpleCompRms::process( SampleType &in1, SampleType &in2 )
 	{
 		// create sidechain
 
-		double inSq1 = in1 * in1;	// square input
-		double inSq2 = in2 * in2;
+		SampleType inSq1 = in1 * in1;	// square input
+		SampleType inSq2 = in2 * in2;
 
-		double sum = inSq1 + inSq2;			// power summing
+		SampleType sum = inSq1 + inSq2;			// power summing
 		sum += DC_OFFSET;					// DC offset, to prevent denormal
 		ave_.run( sum, aveOfSqrs_ );		// average of squares
-		double rms = sqrt( aveOfSqrs_ );	// rms (sort of ...)
+		SampleType rms = sqrt( aveOfSqrs_ );	// rms (sort of ...)
 
 		/* REGARDING THE RMS AVERAGER: Ok, so this isn't a REAL RMS
 		 * calculation. A true RMS is an FIR moving average. This

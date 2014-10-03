@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Class		: 
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -40,14 +40,14 @@ namespace chunkware_simple
 	//-------------------------------------------------------------
 
 	// linear -> dB conversion
-	static INLINE double lin2dB( double lin ) {
-		static const double LOG_2_DB = 8.6858896380650365530225783783321;	// 20 / ln( 10 )
+	static INLINE SampleType lin2dB( SampleType lin ) {
+		static const SampleType LOG_2_DB = 8.6858896380650365530225783783321;	// 20 / ln( 10 )
 		return log( lin ) * LOG_2_DB;
 	}
 
 	// dB -> linear conversion
-	static INLINE double dB2lin( double dB ) {
-		static const double DB_2_LOG = 0.11512925464970228420089957273422;	// ln( 10 ) / 20
+	static INLINE SampleType dB2lin( SampleType dB ) {
+		static const SampleType DB_2_LOG = 0.11512925464970228420089957273422;	// ln( 10 ) / 20
 		return exp( dB * DB_2_LOG );
 	}
 

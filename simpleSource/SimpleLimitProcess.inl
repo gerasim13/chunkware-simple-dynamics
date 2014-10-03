@@ -4,9 +4,9 @@
  *  File		: SimpleLimitProcess.inl
  *	Library		: SimpleSource
  *  Version		: 1.12
- *  Implements	: void SimpleLimit::process( double &in1, double &in2 )
+ *  Implements	: void SimpleLimit::process( SampleType &in1, SampleType &in2 )
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -34,14 +34,14 @@
 namespace chunkware_simple
 {
 	//-------------------------------------------------------------
-	INLINE void SimpleLimit::process( double &in1, double &in2 )
+	INLINE void SimpleLimit::process( SampleType &in1, SampleType &in2 )
 	{
 		// create sidechain
 
-		double rect1 = fabs( in1 );	// rectify input
-		double rect2 = fabs( in2 );
+		SampleType rect1 = fabs( in1 );	// rectify input
+		SampleType rect2 = fabs( in2 );
 
-		double keyLink = std::max( rect1, rect2 );	// link channels with greater of 2
+		SampleType keyLink = std::max( rect1, rect2 );	// link channels with greater of 2
 
 		// threshold
 		// we always want to feed the sidechain AT LEATS the threshold value
@@ -93,14 +93,14 @@ namespace chunkware_simple
 		 */
 
 		// gain reduction
-		double gR = thresh_ / env_;
+		SampleType gR = thresh_ / env_;
 
 		// unload current buffer index
 		// ( cur_ - delay ) & mask_ gets sample from [delay] samples ago
 		// mask_ variable wraps index
 		unsigned int delayIndex = ( cur_ - peakHold_ ) & mask_;
-		double delay1 = outBuffer_[ 0 ][ delayIndex ];
-		double delay2 = outBuffer_[ 1 ][ delayIndex ];
+		SampleType delay1 = outBuffer_[ 0 ][ delayIndex ];
+		SampleType delay2 = outBuffer_[ 1 ][ delayIndex ];
 
 		// load current buffer index and advance current index
 		// mask_ wraps cur_ index

@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Class		: SimpleComp, SimpleCompRms
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -47,25 +47,25 @@ namespace chunkware_simple
 		virtual ~SimpleComp() {}
 
 		// parameters
-		virtual void setThresh( double dB );
-		virtual void setRatio( double dB );
+		virtual void setThresh( SampleType dB );
+		virtual void setRatio( SampleType dB );
 
-		virtual double getThresh( void ) const { return threshdB_; }
-		virtual double getRatio( void )  const { return ratio_; }
+		virtual SampleType getThresh( void ) const { return threshdB_; }
+		virtual SampleType getRatio( void )  const { return ratio_; }
 
 		// runtime
 		virtual void initRuntime( void );			// call before runtime (in resume())
-		void process( double &in1, double &in2 );	// compressor runtime process
-		void process( double &in1, double &in2, double keyLinked );	// with stereo-linked key in
+		void process( SampleType &in1, SampleType &in2 );	// compressor runtime process
+		void process( SampleType &in1, SampleType &in2, SampleType keyLinked );	// with stereo-linked key in
 
 	private:
 
 		// transfer function
-		double threshdB_;		// threshold (dB)
-		double ratio_;			// ratio (compression: < 1 ; expansion: > 1)
+		SampleType threshdB_;		// threshold (dB)
+		SampleType ratio_;			// ratio (compression: < 1 ; expansion: > 1)
 
 		// runtime variables
-		double envdB_;			// over-threshold envelope (dB)
+		SampleType envdB_;			// over-threshold envelope (dB)
 
 	};	// end SimpleComp class
 
@@ -79,20 +79,20 @@ namespace chunkware_simple
 		virtual ~SimpleCompRms() {}
 
 		// sample rate
-		virtual void setSampleRate( double sampleRate );
+		virtual void setSampleRate( SampleType sampleRate );
 
 		// RMS window
-		virtual void setWindow( double ms );
-		virtual double getWindow( void ) const { return ave_.getTc(); }
+		virtual void setWindow( SampleType ms );
+		virtual SampleType getWindow( void ) const { return ave_.getTc(); }
 
 		// runtime process
 		virtual void initRuntime( void );			// call before runtime (in resume())
-		void process( double &in1, double &in2 );	// compressor runtime process
+		void process( SampleType &in1, SampleType &in2 );	// compressor runtime process
 
 	private:
 
 		EnvelopeDetector ave_;	// averager
-		double aveOfSqrs_;		// average of squares
+		SampleType aveOfSqrs_;		// average of squares
 
 	};	// end SimpleCompRms class
 

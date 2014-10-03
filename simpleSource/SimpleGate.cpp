@@ -6,7 +6,7 @@
  *  Version		: 1.12
  *  Implements	: SimpleGate, SimpleGateRms
  *
- *	© 2006, ChunkWare Music Software, OPEN-SOURCE
+ *	ï¿½ 2006, ChunkWare Music Software, OPEN-SOURCE
  *
  *	Permission is hereby granted, free of charge, to any person obtaining a
  *	copy of this software and associated documentation files (the "Software"),
@@ -42,7 +42,7 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleGate::setThresh( double dB )
+	void SimpleGate::setThresh( SampleType dB )
 	{
 		threshdB_ = dB;
 		thresh_ = dB2lin( dB );
@@ -64,14 +64,14 @@ namespace chunkware_simple
 	}
 
 	//-------------------------------------------------------------
-	void SimpleGateRms::setSampleRate( double sampleRate )
+	void SimpleGateRms::setSampleRate( SampleType sampleRate )
 	{
 		SimpleGate::setSampleRate( sampleRate );
 		ave_.setSampleRate( sampleRate );
 	}
 
 	//-------------------------------------------------------------
-	void SimpleGateRms::setWindow( double ms )
+	void SimpleGateRms::setWindow( SampleType ms )
 	{
 		ave_.setTc( ms );
 	}
