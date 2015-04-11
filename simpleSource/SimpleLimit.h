@@ -57,7 +57,7 @@ namespace chunkware_simple
 		virtual SampleType getRelease( void ) const { return rel_.getTc(); }
 
 		// latency
-		virtual const unsigned int getLatency( void ) const { return peakHold_; }
+		virtual unsigned int getLatency( void ) const { return peakHold_; }
 
 		// sample rate dependencies
 		virtual void   setSampleRate( SampleType sampleRate );
